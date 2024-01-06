@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:seat_finder/constants/colors.dart';
 
 import 'package:seat_finder/widget_components/custom_clipper.dart';
-import 'package:seat_finder/widget_components/seat_widget.dart';
-import 'package:seat_finder/widget_components/side_seat_widget.dart';
+import 'package:seat_finder/widget_components/front_seat_widget.dart';
+import 'package:seat_finder/widget_components/opposite_seat_widget.dart';
 class CabinWidgetView extends StatelessWidget {
   const CabinWidgetView({
     super.key,
@@ -32,7 +33,7 @@ class CabinWidgetView extends StatelessWidget {
                         width: 200,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
-                          color: const Color(0xff80CBFF),
+                          color: SFColors.clipperContainerColor,
                         ),
                       ),
                     ),
@@ -40,7 +41,7 @@ class CabinWidgetView extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 5),
                       child: Row(
                         children: [
-                          SeatWidget(
+                          FrontSeatWidget(
                             searchBarText: searchBarText,
                             seatIndex: 1 + index * 8,
                             seatType: "Lower",
@@ -48,15 +49,15 @@ class CabinWidgetView extends StatelessWidget {
                           const SizedBox(
                             width: 4,
                           ),
-                          SeatWidget(
+                          FrontSeatWidget(
                             searchBarText: searchBarText,
                             seatIndex: 2 + index * 8,
                             seatType: "Middle",
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 4,
                           ),
-                          SeatWidget(
+                          FrontSeatWidget(
                             searchBarText: searchBarText,
                             seatIndex: 3 + index * 8,
                             seatType: "Upper",
@@ -82,7 +83,7 @@ class CabinWidgetView extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 5),
-                      child: SideSeatWidget(
+                      child: FrontSeatWidget(
                         searchBarText: searchBarText,
                         seatIndex: 7 + index * 8,
                         seatType: "Side Low",
@@ -108,7 +109,7 @@ class CabinWidgetView extends StatelessWidget {
                         width: 200,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
-                          color: const Color(0xff80CBFF),
+                          color: SFColors.clipperContainerColor,
                         ),
                       ),
                     ),
@@ -116,7 +117,7 @@ class CabinWidgetView extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 5),
                       child: Row(
                         children: [
-                          SeatWidget(
+                          OppositeSeatWidget(
                             searchBarText: searchBarText,
                             seatIndex: 4 + index * 8 ,
                             seatType: "Lower",
@@ -125,7 +126,7 @@ class CabinWidgetView extends StatelessWidget {
                           const SizedBox(
                             width: 4,
                           ),
-                          SeatWidget(
+                          OppositeSeatWidget(
                             searchBarText: searchBarText,
                             seatIndex: 5 + index * 8,
                             seatType: "Middle",
@@ -133,7 +134,7 @@ class CabinWidgetView extends StatelessWidget {
                           const SizedBox(
                             width: 4,
                           ),
-                          SeatWidget(
+                          OppositeSeatWidget(
                             searchBarText: searchBarText,
                             seatIndex: 6 + index * 8,
                             seatType: "Upper",
@@ -153,13 +154,13 @@ class CabinWidgetView extends StatelessWidget {
                         width: 72,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
-                          color: const Color(0xff80CBFF),
+                          color: SFColors.clipperContainerColor,
                         ),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(bottom: 5),
-                      child: SeatWidget(
+                      child: OppositeSeatWidget(
                         searchBarText: searchBarText,
                         seatIndex: 8 + index * 8,
                         seatType: "Side Up",

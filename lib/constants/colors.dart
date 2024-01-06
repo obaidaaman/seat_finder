@@ -6,4 +6,5 @@ class SFColors{
   static const Color whiteColor = Colors.white;
   static const Color blueColor = Colors.blue;
   static const Color unmatchedSeatColor = Color(0xffCEEAFF);
+  static const Color clipperContainerColor = Color(0xff80CBFF);
 }

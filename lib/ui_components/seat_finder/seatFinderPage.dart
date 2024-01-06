@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter/services.dart';
+
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
 import 'package:seat_finder/constants/colors.dart';
+
 import 'package:seat_finder/widget_components/side_widget.dart';
 
 class SeatFinderPage extends StatefulWidget {
+
   const SeatFinderPage({super.key});
 
   @override
@@ -12,9 +18,30 @@ class SeatFinderPage extends StatefulWidget {
 
 class _SeatFinderPageState extends State<SeatFinderPage> {
   String? searchText;
+final itemController = ItemScrollController();
+  final ItemPositionsListener _itemPositionsListener = ItemPositionsListener.create();
 
   bool contains = false;
   TextEditingController searchController = TextEditingController();
+
+
+
+  void scrollToEnteredSeat(){
+    if(searchText!=null && searchText!.isNotEmpty){
+      int seatIndex = int.tryParse(searchText!) ?? -1;
+
+      if(seatIndex != -1 && seatIndex >= 0 && seatIndex <= 80){
+        int scrollPosition = (seatIndex - 1) ~/ 10;
+
+        itemController.scrollTo(index: scrollPosition,duration: Duration(seconds: 2),curve: Curves.easeInOut);
+      }
+      else{
+        print("Invalid Seat Number");
+      }
+    }
+
+
+  }
 
   @override
   void dispose() {
@@ -105,11 +132,12 @@ class _SeatFinderPageState extends State<SeatFinderPage> {
                                 .invokeMethod('TextInput.hide');
                             FocusScope.of(context).unfocus();
                             contains = false;
+                            scrollToEnteredSeat();
                           });
                         },
                         child: const Text(
                           "Find",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(fontSize: 18, color:SFColors.whiteColor),
                         )),
                   ),
                 ),
@@ -119,7 +147,9 @@ class _SeatFinderPageState extends State<SeatFinderPage> {
               height: 10,
             ),
             Expanded(
-                child: ListView.builder(
+                child: ScrollablePositionedList.builder(
+itemScrollController: itemController,
+              itemPositionsListener: _itemPositionsListener,
               itemBuilder: (context, index) {
                 return Builder(
                     builder: (context) => CabinWidget(

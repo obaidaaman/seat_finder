@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SideSeatWidget extends StatefulWidget {
-  const SideSeatWidget(
+class OppositeSeatWidget extends StatefulWidget {
+  const OppositeSeatWidget(
       {super.key,
         required this.seatIndex,
         required this.seatType,
@@ -13,10 +13,10 @@ class SideSeatWidget extends StatefulWidget {
   final String? searchBarText;
 
   @override
-  State<SideSeatWidget> createState() => _SideSeatWidgetState();
+  State<OppositeSeatWidget> createState() => _OppositeSeatWidgetState();
 }
 
-class _SideSeatWidgetState extends State<SideSeatWidget> {
+class _OppositeSeatWidgetState extends State<OppositeSeatWidget> {
 
   bool shouldHighlightSeat() {
     print(

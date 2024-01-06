@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seat_finder/widget_components/seat_widget.dart';
+import 'package:seat_finder/widget_components/front_seat_widget.dart';
 
 import '../../constants/colors.dart';
 
@@ -11,7 +11,7 @@ class SeatArchitecture extends StatelessWidget {
   });
 
   final bool shouldHighlight;
-  final SeatWidget widget;
+  final FrontSeatWidget widget;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class ColumnWidget extends StatelessWidget {
 
   });
 
-  final SeatWidget widget;
+  final FrontSeatWidget widget;
   final bool shouldHighlight;
 
 

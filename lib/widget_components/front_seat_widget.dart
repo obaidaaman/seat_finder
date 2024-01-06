@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:seat_finder/constants/colors.dart';
 
-class SeatWidget extends StatefulWidget {
-  const SeatWidget(
+class FrontSeatWidget extends StatefulWidget {
+  const FrontSeatWidget(
       {super.key,
       required this.seatIndex,
       required this.seatType,
@@ -14,10 +14,10 @@ class SeatWidget extends StatefulWidget {
   final String? searchBarText;
 
   @override
-  State<SeatWidget> createState() => _SeatWidgetState();
+  State<FrontSeatWidget> createState() => _FrontSeatWidgetState();
 }
 
-class _SeatWidgetState extends State<SeatWidget> {
+class _FrontSeatWidgetState extends State<FrontSeatWidget> {
 
   bool shouldHighlightSeat() {
     print(
@@ -29,7 +29,7 @@ class _SeatWidgetState extends State<SeatWidget> {
   Widget build(BuildContext context) {
     bool shouldHighlight = shouldHighlightSeat();
     return SeatArchitecture(shouldHighlight: shouldHighlight, widget: widget);
-    ;
+    
   }
 }
 
@@ -41,7 +41,7 @@ class SeatArchitecture extends StatelessWidget {
   });
 
   final bool shouldHighlight;
-  final SeatWidget widget;
+  final FrontSeatWidget widget;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class ColumnWidget extends StatelessWidget {
 
   });
 
-  final SeatWidget widget;
+  final FrontSeatWidget widget;
   final bool shouldHighlight;
 
 
