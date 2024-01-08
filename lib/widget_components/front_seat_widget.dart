@@ -25,6 +25,7 @@ class _FrontSeatWidgetState extends State<FrontSeatWidget> {
   bool shouldHighlightSeat() {
     print(
         'Search Text: ${widget.searchBarText}, Seat Index: ${widget.seatIndex.toString()}');
+
     bool SeatIndexMatched = widget.searchBarText == widget.seatIndex.toString();
     return SeatIndexMatched || _isTapped;
   }

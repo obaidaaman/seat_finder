@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
-
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-
 import 'package:seat_finder/constants/colors.dart';
-
 import 'package:seat_finder/widget_components/side_widget.dart';
 
 class SeatFinderPage extends StatefulWidget {
-
   const SeatFinderPage({super.key});
 
   @override
@@ -18,29 +13,32 @@ class SeatFinderPage extends StatefulWidget {
 
 class _SeatFinderPageState extends State<SeatFinderPage> {
   String? searchText;
-final itemController = ItemScrollController();
-  final ItemPositionsListener _itemPositionsListener = ItemPositionsListener.create();
+
+  final itemController = ItemScrollController();
+
+  final ItemPositionsListener _itemPositionsListener =
+      ItemPositionsListener.create();
 
   bool contains = false;
+
   TextEditingController searchController = TextEditingController();
 
-
-
-  void scrollToEnteredSeat(){
-    if(searchText!=null && searchText!.isNotEmpty){
+  void scrollToEnteredSeat() {
+    if (searchText != null && searchText!.isNotEmpty) {
       int seatIndex = int.tryParse(searchText!) ?? -1;
 
-      if(seatIndex != -1 && seatIndex >= 0 && seatIndex <= 80){
+      if (seatIndex != -1 && seatIndex >= 0 && seatIndex <= 80) {
         int scrollPosition = (seatIndex - 1) ~/ 10;
 
-        itemController.scrollTo(index: scrollPosition,duration: Duration(seconds: 2),curve: Curves.easeInOut);
-      }
-      else{
+        itemController.scrollTo(
+            index: scrollPosition,
+            duration: Duration(seconds: 2),
+            curve: Curves.easeInOut);
+      } else {
+        invalidSeatSnackbar();
         print("Invalid Seat Number");
       }
     }
-
-
   }
 
   @override
@@ -137,7 +135,8 @@ final itemController = ItemScrollController();
                         },
                         child: const Text(
                           "Find",
-                          style: TextStyle(fontSize: 18, color:SFColors.whiteColor),
+                          style: TextStyle(
+                              fontSize: 18, color: SFColors.whiteColor),
                         )),
                   ),
                 ),
@@ -148,7 +147,7 @@ final itemController = ItemScrollController();
             ),
             Expanded(
                 child: ScrollablePositionedList.builder(
-itemScrollController: itemController,
+              itemScrollController: itemController,
               itemPositionsListener: _itemPositionsListener,
               itemBuilder: (context, index) {
                 return Builder(
@@ -163,5 +162,15 @@ itemScrollController: itemController,
         ),
       ),
     );
+  }
+
+  void invalidSeatSnackbar() {
+    final snackBar = SnackBar(
+      content: Text("Invalid seat Entered, Try between 1-80"),
+      duration: Duration(seconds: 3),
+      backgroundColor: Colors.red,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
