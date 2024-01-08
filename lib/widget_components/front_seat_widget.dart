@@ -19,57 +19,56 @@ class FrontSeatWidget extends StatefulWidget {
 
 class _FrontSeatWidgetState extends State<FrontSeatWidget> {
 
+
+  bool _isTapped = false;
+
   bool shouldHighlightSeat() {
     print(
         'Search Text: ${widget.searchBarText}, Seat Index: ${widget.seatIndex.toString()}');
-    return widget.searchBarText == widget.seatIndex.toString();
+    bool SeatIndexMatched = widget.searchBarText == widget.seatIndex.toString();
+    return SeatIndexMatched || _isTapped;
+  }
+
+  void _handleTap(){
+    setState(() {
+      _isTapped = !_isTapped;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     bool shouldHighlight = shouldHighlightSeat();
-    return SeatArchitecture(shouldHighlight: shouldHighlight, widget: widget);
+    return GestureDetector(
+      onTap: _handleTap,
+      child: Container(
+        height: 60,
+        width: 60,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                  color: shouldHighlight
+                      ? SFColors.blueColor.withOpacity(0.5)
+                      : Colors.transparent,
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: const Offset(0, 1))
+            ],
+            border: Border.all(
+              color:
+              shouldHighlight ? const Color(0xff126DCA) : Colors.transparent,
+              width: 2,
+            ),
+            color: shouldHighlight ? SFColors.matchedSeatColor :
+            SFColors.unmatchedSeatColor),
+        child: ColumnWidget(widget: widget, shouldHighlight: shouldHighlight),
+      ),
+    );
     
   }
 }
 
-class SeatArchitecture extends StatelessWidget {
-  const SeatArchitecture({
-    super.key,
-    required this.shouldHighlight,
-    required this.widget,
-  });
 
-  final bool shouldHighlight;
-  final FrontSeatWidget widget;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      width: 60,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-                color: shouldHighlight
-                    ? SFColors.blueColor.withOpacity(0.5)
-                    : Colors.transparent,
-                spreadRadius: 1,
-                blurRadius: 2,
-                offset: const Offset(0, 1))
-          ],
-          border: Border.all(
-            color:
-                shouldHighlight ? const Color(0xff126DCA) : Colors.transparent,
-            width: 2,
-          ),
-          color: shouldHighlight ? SFColors.matchedSeatColor :
-           SFColors.unmatchedSeatColor),
-      child: ColumnWidget(widget: widget, shouldHighlight: shouldHighlight),
-    );
-  }
-}
 
 class ColumnWidget extends StatelessWidget {
   const ColumnWidget({
