@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seat_finder/widget_components/front_seat_widget.dart';
+import 'package:seat_finder/widget_components/seat_widget/front_seat_widget.dart';
 
 import '../../constants/colors.dart';
 
