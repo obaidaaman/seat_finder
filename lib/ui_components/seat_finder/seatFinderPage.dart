@@ -6,7 +6,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import 'package:seat_finder/constants/colors.dart';
 
-import 'package:seat_finder/widget_components/side_widget.dart';
+import 'package:seat_finder/widget_components/cabin_widget.dart';
 
 class SeatFinderPage extends StatefulWidget {
 
@@ -76,92 +76,104 @@ final itemController = ItemScrollController();
             const SizedBox(
               height: 8,
             ),
-            Stack(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 5, right: 10),
-                    child: TextFormField(
-                      onChanged: onSearchTextChanged,
-                      controller: searchController,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.all(10),
-                        hintText: "Enter Seat Number...",
-                        hintStyle: TextStyle(color: SFColors.matchedSeatColor),
-                        prefixIcon: Icon(Icons.search),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(
-                              width: 2, color: SFColors.matchedSeatColor),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(
-                              width: 2, color: SFColors.matchedSeatColor),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  right: 2,
-                  child: SizedBox(
-                    width: 80,
-                    height: 50,
-                    child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.resolveWith<Color>(
-                                    (states) {
-                              if (contains == false) {
-                                return SFColors.disabledFindButton;
-                              }
-                              return SFColors.matchedSeatColor;
-                            }),
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(7)))),
-                        onPressed: () {
-                          setState(() {
-                            searchText =
-                                contains == true ? searchController.text : null;
-                            searchController.clear();
-                            SystemChannels.textInput
-                                .invokeMethod('TextInput.hide');
-                            FocusScope.of(context).unfocus();
-                            contains = false;
-                            scrollToEnteredSeat();
-                          });
-                        },
-                        child: const Text(
-                          "Find",
-                          style: TextStyle(fontSize: 18, color:SFColors.whiteColor),
-                        )),
-                  ),
-                ),
-              ],
-            ),
+            buildStack(context),
             const SizedBox(
               height: 10,
             ),
-            Expanded(
-                child: ScrollablePositionedList.builder(
-itemScrollController: itemController,
-              itemPositionsListener: _itemPositionsListener,
-              itemBuilder: (context, index) {
-                return Builder(
-                    builder: (context) => CabinWidget(
-                          index: index,
-                          searchBarText: searchText,
-                        ));
-              },
-              itemCount: 10,
-            ))
+            buildExpanded()
           ],
         ),
       ),
     );
+  }
+
+
+
+
+
+  Expanded buildExpanded() {
+    return Expanded(
+              child: ScrollablePositionedList.builder(
+itemScrollController: itemController,
+            itemPositionsListener: _itemPositionsListener,
+            itemBuilder: (context, index) {
+              return Builder(
+                  builder: (context) => CabinWidget(
+                        index: index,
+                        searchBarText: searchText,
+                      ));
+            },
+            itemCount: 10,
+          ));
+  }
+
+  Stack buildStack(BuildContext context) {
+    return Stack(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 5, right: 10),
+                  child: TextFormField(
+                    onChanged: onSearchTextChanged,
+                    controller: searchController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.all(10),
+                      hintText: "Enter Seat Number...",
+                      hintStyle: TextStyle(color: SFColors.matchedSeatColor),
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(
+                            width: 2, color: SFColors.matchedSeatColor),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(
+                            width: 2, color: SFColors.matchedSeatColor),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                right: 2,
+                child: SizedBox(
+                  width: 80,
+                  height: 50,
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.resolveWith<Color>(
+                                  (states) {
+                            if (contains == false) {
+                              return SFColors.disabledFindButton;
+                            }
+                            return SFColors.matchedSeatColor;
+                          }),
+                          shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(7)))),
+                      onPressed: () {
+                        setState(() {
+                          searchText =
+                              contains == true ? searchController.text : null;
+                          searchController.clear();
+                          SystemChannels.textInput
+                              .invokeMethod('TextInput.hide');
+                          FocusScope.of(context).unfocus();
+                          contains = false;
+                          scrollToEnteredSeat();
+                        });
+                      },
+                      child: const Text(
+                        "Find",
+                        style: TextStyle(fontSize: 18, color:SFColors.whiteColor),
+                      )),
+                ),
+              ),
+            ],
+          );
   }
 }
