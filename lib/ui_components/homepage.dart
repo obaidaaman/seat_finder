@@ -11,6 +11,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _SeatViewState extends State<HomePage> {
+
+  bool _showProgressIndicator = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,18 +20,47 @@ class _SeatViewState extends State<HomePage> {
         title: const Text('Seat View'),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const SeatFinderPage())
-            );
-          },
-          child: const Text(
-            "Seat Finder",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 45),
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _showProgressIndicator = true;
+                  });
+
+                 Future.delayed(Duration(seconds: 1),() {
+                   Navigator.of(context).push(
+                       MaterialPageRoute(builder: (context) => const SeatFinderPage())
+                   ).then((_){
+                     setState(() {
+                       _showProgressIndicator = false;
+                     });
+                   });
+                 },);
+
+                },
+                child: const Text(
+                  "Seat Finder",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+
+              if(_showProgressIndicator)
+                const CircularProgressIndicator()
+
+            ],
           ),
         ),
       ),
     );
   }
+}
+
+void cricleButton() {
+
 }

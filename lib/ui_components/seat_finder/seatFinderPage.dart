@@ -70,7 +70,7 @@ class _SeatFinderPageState extends State<SeatFinderPage> {
         backgroundColor: SFColors.whiteColor,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Column(
           children: [
             const SizedBox(
@@ -78,8 +78,7 @@ class _SeatFinderPageState extends State<SeatFinderPage> {
             ),
             Stack(
               children: [
-                Expanded(
-                  child: Padding(
+                Padding(
                     padding: const EdgeInsets.only(left: 5, right: 10),
                     child: TextFormField(
                       onChanged: onSearchTextChanged,
@@ -103,7 +102,7 @@ class _SeatFinderPageState extends State<SeatFinderPage> {
                       ),
                     ),
                   ),
-                ),
+
                 Positioned(
                   right: 2,
                   child: SizedBox(
