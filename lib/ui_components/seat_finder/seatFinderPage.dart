@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:seat_finder/constants/colors.dart';
-import 'package:seat_finder/widget_components/side_widget.dart';
+
+
+import '../../widget_components/cabin_widget.dart';
 
 class SeatFinderPage extends StatefulWidget {
   const SeatFinderPage({super.key});
