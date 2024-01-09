@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:seat_finder/constants/colors.dart';
-
 
 import '../../widget_components/cabin_widget.dart';
 
@@ -15,13 +15,11 @@ class SeatFinderPage extends StatefulWidget {
 
 class _SeatFinderPageState extends State<SeatFinderPage> {
   String? searchText;
-
+  bool contains = false;
   final itemController = ItemScrollController();
 
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
-
-  bool contains = false;
 
   TextEditingController searchController = TextEditingController();
 
@@ -34,7 +32,7 @@ class _SeatFinderPageState extends State<SeatFinderPage> {
 
         itemController.scrollTo(
             index: scrollPosition,
-            duration: Duration(seconds: 2),
+            duration: const Duration(seconds: 2),
             curve: Curves.easeInOut);
       } else {
         invalidSeatSnackbar();
@@ -62,52 +60,62 @@ class _SeatFinderPageState extends State<SeatFinderPage> {
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: const Text(
+        title: Text(
           "Seat Finder",
-          style: TextStyle(color: SFColors.matchedSeatColor, fontSize: 21),
+          style: TextStyle(
+              fontFamily: "Poppins",
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.w600,
+              color: SFColors.matchedSeatColor,
+              fontSize: 21.sp),
         ),
         centerTitle: false,
         backgroundColor: SFColors.whiteColor,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: EdgeInsets.symmetric(horizontal: 8.0.w),
         child: Column(
           children: [
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 8.h,
             ),
             Stack(
               children: [
                 Padding(
-                    padding: const EdgeInsets.only(left: 5, right: 10),
-                    child: TextFormField(
-                      onChanged: onSearchTextChanged,
-                      controller: searchController,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.all(10),
-                        hintText: "Enter Seat Number...",
-                        hintStyle: TextStyle(color: SFColors.matchedSeatColor),
-                        prefixIcon: Icon(Icons.search),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(
-                              width: 2, color: SFColors.matchedSeatColor),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(
-                              width: 2, color: SFColors.matchedSeatColor),
-                        ),
+                  padding: EdgeInsets.only(
+                      left: 5.w, right: 10.w, bottom: 5.w, top: 2.w),
+                  child: TextFormField(
+                    onChanged: onSearchTextChanged,
+                    controller: searchController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.all(10),
+                      hintText: "Enter Seat Number...",
+                      hintStyle: TextStyle(
+                          color: SFColors.matchedSeatColor,
+                          fontFamily: "Poppins",
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w400),
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(
+                            width: 2, color: SFColors.matchedSeatColor),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(
+                            width: 2, color: SFColors.matchedSeatColor),
                       ),
                     ),
                   ),
-
+                ),
                 Positioned(
-                  right: 2,
+                  right: 2.w,
+                  bottom: 5.w,
                   child: SizedBox(
-                    width: 80,
-                    height: 50,
+                    width: 70.w,
+                    height: 43.h,
                     child: ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor:
@@ -137,7 +145,11 @@ class _SeatFinderPageState extends State<SeatFinderPage> {
                         child: const Text(
                           "Find",
                           style: TextStyle(
-                              fontSize: 18, color: SFColors.whiteColor),
+                              fontFamily: "Poppins",
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              color: SFColors.whiteColor),
                         )),
                   ),
                 ),
@@ -166,7 +178,7 @@ class _SeatFinderPageState extends State<SeatFinderPage> {
   }
 
   void invalidSeatSnackbar() {
-    final snackBar = SnackBar(
+    const snackBar = SnackBar(
       content: Text("Invalid seat Entered, Try between 1-80"),
       duration: Duration(seconds: 3),
       backgroundColor: Colors.red,

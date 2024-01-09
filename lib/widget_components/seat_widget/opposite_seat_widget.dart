@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:seat_finder/constants/colors.dart';
 
 class OppositeSeatWidget extends StatefulWidget {
@@ -19,7 +20,7 @@ class OppositeSeatWidget extends StatefulWidget {
 
 class _OppositeSeatWidgetState extends State<OppositeSeatWidget> {
 
-  bool _isHighlighted = false;
+
 
   bool flag = false;
 
@@ -58,8 +59,8 @@ class _OppositeSeatWidgetState extends State<OppositeSeatWidget> {
       onTap: _handleTap ,
 
       child: Container(
-        height: 60,
-        width: 60,
+        height: 50.h,
+        width: 60.w,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
@@ -84,17 +85,17 @@ class _OppositeSeatWidgetState extends State<OppositeSeatWidget> {
             Text(
               widget.seatType,
               style: TextStyle(
-                fontSize: 12,
+                fontSize: 12.sp,
                 color: shouldHighlight  ? SFColors.unmatchedSeatColor :
                 SFColors.matchedSeatColor,
                 fontWeight: FontWeight.normal,
               ),
             ),
-            const SizedBox(height: 6),
+             SizedBox(height: 6.h),
             Text(
               widget.seatIndex.toString(),
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 16.sp,
                 color:
                 shouldHighlight  ? SFColors.unmatchedSeatColor:
                 SFColors.matchedSeatColor,

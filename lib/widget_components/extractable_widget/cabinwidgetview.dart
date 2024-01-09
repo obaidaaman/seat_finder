@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:seat_finder/constants/colors.dart';
 
 import 'package:seat_finder/widget_components/customs/custom_clipper.dart';
@@ -29,8 +30,8 @@ class CabinWidgetView extends StatelessWidget {
                 sideSeatStackFront(),
               ],
             ),
-            const SizedBox(
-              height: 16,
+             SizedBox(
+              height: 16.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -41,7 +42,7 @@ class CabinWidgetView extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 2),
+         SizedBox(height: 2.h),
       ],
     );
   }
@@ -53,8 +54,8 @@ class CabinWidgetView extends StatelessWidget {
                   ClipPath(
                     clipper: MyCustomCliperFromBottom(),
                     child: Container(
-                      height: 60,
-                      width: 72,
+                      height: 60.h,
+                      width: 70.w,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
                         color: SFColors.clipperContainerColor,
@@ -80,8 +81,8 @@ class CabinWidgetView extends StatelessWidget {
                   ClipPath(
                     clipper: MyCustomCliperFromBottom(),
                     child: Container(
-                      height: 60,
-                      width: 200,
+                      height: 60.h,
+                      width: 200.w,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
                         color: SFColors.clipperContainerColor,
@@ -128,8 +129,8 @@ class CabinWidgetView extends StatelessWidget {
                   ClipPath(
                     clipper: CustomClipperTop(),
                     child: Container(
-                      height: 60,
-                      width: 72,
+                      height: 60.h,
+                      width: 70.w,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
                         color: const Color(0xff80CBFF),
@@ -155,8 +156,8 @@ class CabinWidgetView extends StatelessWidget {
                   ClipPath(
                     clipper: CustomClipperTop(),
                     child: Container(
-                      height: 60,
-                      width: 200,
+                      height: 60.h,
+                      width: 200.w,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
                         color: SFColors.clipperContainerColor,
@@ -164,7 +165,7 @@ class CabinWidgetView extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 5),
+                    padding:  EdgeInsets.only(top: 5.h),
                     child: Row(
                       children: [
                         FrontSeatWidget(
@@ -172,8 +173,8 @@ class CabinWidgetView extends StatelessWidget {
                           seatIndex: 1 + index * 8,
                           seatType: "Lower",
                         ),
-                        const SizedBox(
-                          width: 2,
+                         SizedBox(
+                          width: 2.w,
                         ),
                         FrontSeatWidget(
                           searchBarText: searchBarText,

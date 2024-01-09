@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:seat_finder/constants/colors.dart';
 
 class FrontSeatWidget extends StatefulWidget {
@@ -47,8 +48,8 @@ class _FrontSeatWidgetState extends State<FrontSeatWidget> {
     return GestureDetector(
       onTap: _handleTap,
       child: Container(
-          height: 60,
-          width: 60,
+          height: 50.h,
+          width: 60.w,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               boxShadow: [
@@ -75,18 +76,18 @@ class _FrontSeatWidgetState extends State<FrontSeatWidget> {
               Text(
                 widget.seatIndex.toString(),
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   color: shouldHighlight
                       ? SFColors.unmatchedSeatColor
                       : SFColors.matchedSeatColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 4),
+               SizedBox(height: 4.h),
               Text(
                 widget.seatType,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 12.sp,
                   color: shouldHighlight
                       ? SFColors.unmatchedSeatColor
                       : SFColors.matchedSeatColor,
