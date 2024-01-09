@@ -4,13 +4,23 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is a Demo Application for Seat Finder.
 
-A few resources to get you started if this is your first Flutter project:
+Installation : Clone the repository and get all the dependencies by pub get.
+               Current SDK version  is sdk: '>=3.1.5 <4.0.0' 
+               Upgrade Flutter to rectify SDK version mismatches
+               Ensure all dependencies are properly set up.
+                
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Methodology : The Seat Finder app is built using Flutter, a cross-platform framework that allows rapid development of high-quality mobile applications.
+             Ui Components :
+                            Implemented various UI widgets and components to create an intuitive user interface for seat selection.
+                            Utilized Stack, Column, Row, ScrollablePositionedList, and custom widgets to organize and display seat information effectively.
+             Functionality :
+                            Integrated functionalities for searching specific seat numbers, allowing users to quickly locate seats within a large seating arrangement.
+                            Implemented seat highlighting and color changes based on search results or user interactions for enhanced visibility.
+             Package Usage:
+                            scrollable_positioned_list - for auto scrolling through the seat arrangement.
+                            flutter_screenutil - For creating responsive UIs that adapt to various screen sizes.
+             Error Handling:
+                            Implemented error handling for invalid seat number by displaying snackbar notifications to guide users.

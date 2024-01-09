@@ -133,7 +133,7 @@ class CabinWidgetView extends StatelessWidget {
                       width: 70.w,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
-                        color: const Color(0xff80CBFF),
+                        color: SFColors.clipperContainerColor,
                       ),
                     ),
                   ),

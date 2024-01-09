@@ -20,12 +20,7 @@ class OppositeSeatWidget extends StatefulWidget {
 
 class _OppositeSeatWidgetState extends State<OppositeSeatWidget> {
 
-
-
   bool flag = false;
-
-
-
 
   bool _isTapped = false;
   bool shouldHighlightSeat() {
