@@ -23,24 +23,6 @@ class _SeatFinderPageState extends State<SeatFinderPage> {
 
   TextEditingController searchController = TextEditingController();
 
-  void scrollToEnteredSeat() {
-    if (searchText != null && searchText!.isNotEmpty) {
-      int seatIndex = int.tryParse(searchText!) ?? -1;
-
-      if (seatIndex != -1 && seatIndex >= 0 && seatIndex <= 80) {
-        int scrollPosition = (seatIndex - 1) ~/ 10;
-
-        itemController.scrollTo(
-            index: scrollPosition,
-            duration: const Duration(seconds: 2),
-            curve: Curves.easeInOut);
-      } else {
-        invalidSeatSnackbar();
-        print("Invalid Seat Number");
-      }
-    }
-  }
-
   @override
   void dispose() {
     // TODO: implement dispose
@@ -71,6 +53,14 @@ class _SeatFinderPageState extends State<SeatFinderPage> {
         ),
         centerTitle: false,
         backgroundColor: SFColors.whiteColor,
+        actions: [
+          IconButton(
+              onPressed: () {
+                searchController.clear();
+                searchText = null;
+              },
+              icon: const Icon(Icons.clear))
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 8.0.w),
@@ -79,82 +69,7 @@ class _SeatFinderPageState extends State<SeatFinderPage> {
             SizedBox(
               height: 8.h,
             ),
-            Stack(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: 5.w, right: 10.w, bottom: 5.w, top: 2.w),
-                  child: TextFormField(
-                    onChanged: onSearchTextChanged,
-                    controller: searchController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.all(10),
-                      hintText: "Enter Seat Number...",
-                      hintStyle: TextStyle(
-                          color: SFColors.matchedSeatColor,
-                          fontFamily: "Poppins",
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.w400),
-                      prefixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(
-                            width: 2, color: SFColors.matchedSeatColor),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(
-                            width: 2, color: SFColors.matchedSeatColor),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  right: 2.w,
-                  bottom: 5.w,
-                  child: SizedBox(
-                    width: 70.w,
-                    height: 43.h,
-                    child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.resolveWith<Color>(
-                                    (states) {
-                              if (contains == false) {
-                                return SFColors.disabledFindButton;
-                              }
-                              return SFColors.matchedSeatColor;
-                            }),
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(7)))),
-                        onPressed: () {
-                          setState(() {
-                            searchText =
-                                contains == true ? searchController.text : null;
-                            searchController.clear();
-                            SystemChannels.textInput
-                                .invokeMethod('TextInput.hide');
-                            FocusScope.of(context).unfocus();
-                            contains = false;
-                            scrollToEnteredSeat();
-                          });
-                        },
-                        child: const Text(
-                          "Find",
-                          style: TextStyle(
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18,
-                              color: SFColors.whiteColor),
-                        )),
-                  ),
-                ),
-              ],
-            ),
+            StackTextFormField(context),
             const SizedBox(
               height: 10,
             ),
@@ -177,6 +92,82 @@ class _SeatFinderPageState extends State<SeatFinderPage> {
     );
   }
 
+  Stack StackTextFormField(BuildContext context) {
+    return Stack(
+      children: [
+        Padding(
+          padding:
+              EdgeInsets.only(left: 5.w, right: 10.w, bottom: 5.w, top: 2.w),
+          child: TextFormField(
+            onChanged: onSearchTextChanged,
+            controller: searchController,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              contentPadding: EdgeInsets.all(10),
+              hintText: "Enter Seat Number...",
+              hintStyle: TextStyle(
+                  color: SFColors.matchedSeatColor,
+                  fontFamily: "Poppins",
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w400),
+              prefixIcon: Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderSide:
+                    BorderSide(width: 2, color: SFColors.matchedSeatColor),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderSide:
+                    BorderSide(width: 2, color: SFColors.matchedSeatColor),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          right: 2.w,
+          bottom: 5.w,
+          child: SizedBox(
+            width: 70.w,
+            height: 43.h,
+            child: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.resolveWith<Color>((states) {
+                      if (contains == false) {
+                        return SFColors.disabledFindButton;
+                      }
+                      return SFColors.matchedSeatColor;
+                    }),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(7)))),
+                onPressed: () {
+                  setState(() {
+                    searchText =
+                        contains == true ? searchController.text : null;
+                    searchController.clear();
+                    SystemChannels.textInput.invokeMethod('TextInput.hide');
+                    FocusScope.of(context).unfocus();
+                    contains = false;
+                    scrollToEnteredSeat();
+                  });
+                },
+                child: const Text(
+                  "Find",
+                  style: TextStyle(
+                      fontFamily: "Poppins",
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      color: SFColors.whiteColor),
+                )),
+          ),
+        ),
+      ],
+    );
+  }
+
   void invalidSeatSnackbar() {
     const snackBar = SnackBar(
       content: Text("Invalid seat Entered, Try between 1-80"),
@@ -185,5 +176,23 @@ class _SeatFinderPageState extends State<SeatFinderPage> {
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void scrollToEnteredSeat() {
+    if (searchText != null && searchText!.isNotEmpty) {
+      int seatIndex = int.tryParse(searchText!) ?? -1;
+
+      if (seatIndex != -1 && seatIndex >= 0 && seatIndex <= 80) {
+        int scrollPosition = (seatIndex - 1) ~/ 10;
+
+        itemController.scrollTo(
+            index: scrollPosition,
+            duration: const Duration(seconds: 2),
+            curve: Curves.easeInOut);
+      } else {
+        invalidSeatSnackbar();
+        print("Invalid Seat Number");
+      }
+    }
   }
 }
